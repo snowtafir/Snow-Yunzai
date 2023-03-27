@@ -21,6 +21,15 @@
 
 ## 使用方法
 
+### 建议使用 TRSS Script 一键安装管理
+
+- [🌌 TRSS](https://TRSS.me)
+- [🔼 Vercel](https://TRSS-Script.Vercel.app)
+- [🐱 GitHub](https://TimeRainStarSky.GitHub.io/TRSS_Script)
+- [🇬 Gitee](https://Gitee.com/TimeRainStarSky/TRSS_Script)
+
+### 手动安装
+
 > 环境准备： Windows or Linux，Node.js（ [版本至少 v16 以上](http://nodejs.cn/download) ）， [Redis](https://redis.io/docs/getting-started/installation)
 
 1.克隆项目并安装 miao-plugin
