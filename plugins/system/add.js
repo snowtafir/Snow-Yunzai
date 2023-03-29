@@ -98,8 +98,8 @@ export class add extends plugin {
     
     /** 添加全局表情，存入到机器人qq文件中 */
     if (this.isGlobal) {
-      this.group_id = Bot.uin;
-      return Bot.uin;
+      this.group_id = this.e.self_id;
+      return this.e.self_id;
     }
     
     if (this.e.isGroup) {
@@ -127,10 +127,10 @@ export class add extends plugin {
       return false
     }
     if (groupCfg.imgAddLimit == 1) {
-      if (!Bot.gml.has(this.group_id)) {
+      if (!Bot[this.e.self_id].gml.has(this.group_id)) {
         return false
       }
-      if (!Bot.gml.get(this.group_id).get(this.e.user_id)) {
+      if (!Bot[this.e.self_id].gml.get(this.group_id).get(this.e.user_id)) {
         return false
       }
       if (!this.e.member.is_admin) {
@@ -154,7 +154,7 @@ export class add extends plugin {
     }
 
     if (this.e.at) {
-      let at = lodash.filter(this.e.message, (o) => { return o.type == 'at' && o.qq != Bot.uin })
+      let at = lodash.filter(this.e.message, (o) => { return o.type == 'at' && o.qq != this.e.self_id })
       if (at.length > 1) {
         this.e.reply('添加错误：只能@一个人当关键词')
         return false
@@ -196,12 +196,9 @@ export class add extends plugin {
   getKeyWord () {
     this.e.isGlobal = this.e.msg.includes("全局");
 
-    this.keyWord = this.e.toString()
-      .trim()
+    this.keyWord = this.e.raw_message.trim()
       /** 过滤#添加 */
       .replace(/#|＃|图片|表情|添加|删除|全局/g, '')
-      /** 过滤@ */
-      .replace(new RegExp('{at:' + Bot.uin + '}', 'g'), '')
       .trim()
 
     this.keyWord = this.trimAlias(this.keyWord)
@@ -239,12 +236,12 @@ export class add extends plugin {
     /** 添加内容 */
     let message = this.e.message
 
-    let retMsg = this.getRetMsg()
+    let retMsg = [keyWord]
     this.finish('addContext')
 
     for (let i in message) {
       if (message[i].type == 'at') {
-        if (message[i].qq == Bot.uin) {
+        if (message[i].qq == this.e.self_id) {
           this.e.reply('添加内容不能@机器人！')
           return
         }
@@ -285,36 +282,6 @@ export class add extends plugin {
     this.e.reply(retMsg)
   }
 
-  /** 添加成功回复消息 */
-  getRetMsg () {
-    let retMsg = this.getContext()
-    let msg = ''
-    if (retMsg?.addContext?.message) {
-      msg = retMsg.addContext.message
-
-      for (let i in msg) {
-        if (msg[i].type == 'text' && msg[i].text.includes('添加')) {
-          msg[i].text = this.trimAlias(msg[i].text)
-          msg[i].text = msg[i].text.trim().replace(/#|＃|图片|表情|添加|全局/g, '')
-          if (!msg[i].text) delete msg[i]
-          continue
-        }
-        if (msg[i].type == 'at') {
-          if (msg[i].qq == Bot.uin) {
-            delete msg[i]
-            continue
-          } else {
-            msg[i].text = ''
-          }
-        }
-      }
-    }
-    if (!msg && this.keyWord) {
-      msg = [this.keyWord]
-    }
-    return lodash.compact(msg)
-  }
-
   saveJson () {
     let obj = {}
     for (let [k, v] of textArr[this.group_id]) {
@@ -326,12 +293,12 @@ export class add extends plugin {
   
   saveGlobalJson() {
     let obj = {};
-    for (let [k, v] of textArr[Bot.uin]) {
+    for (let [k, v] of textArr[this.e.self_id]) {
       obj[k] = v;
     }
 
     fs.writeFileSync(
-      `${this.path}${Bot.uin}.json`,
+      `${this.path}${this.e.self_id}.json`,
       JSON.stringify(obj, "", "\t")
     );
   }
@@ -389,7 +356,7 @@ export class add extends plugin {
 
     let keyWord = this.e.toString()
       .replace(/#|＃/g, '')
-      .replace(`{at:${Bot.uin}}`, '')
+      .replace(`{at:${this.e.self_id}}`, '')
       .trim()
 
     keyWord = this.trimAlias(keyWord)
@@ -398,14 +365,14 @@ export class add extends plugin {
     if (isNaN(keyWord)) {
       num = keyWord.charAt(keyWord.length - 1)
 
-      if (!isNaN(num) && !textArr[this.group_id].has(keyWord) && !textArr[Bot.uin].has(keyWord)) {
+      if (!isNaN(num) && !textArr[this.group_id].has(keyWord) && !textArr[this.e.self_id].has(keyWord)) {
         keyWord = lodash.trimEnd(keyWord, num).trim()
         num--
       }
     }
 
     let msg = textArr[this.group_id].get(keyWord) || []
-    let globalMsg = textArr[Bot.uin].get(keyWord) || []
+    let globalMsg = textArr[this.e.self_id].get(keyWord) || []
     if (lodash.isEmpty(msg) && lodash.isEmpty(globalMsg)) return false
 
     msg = [...msg, ...globalMsg]
@@ -512,11 +479,11 @@ export class add extends plugin {
   
   /** 初始化全局已添加内容 */
   initGlobalTextArr() {
-    if (textArr[Bot.uin]) return;
+    if (textArr[this.e.self_id]) return;
 
-    textArr[Bot.uin] = new Map();
+    textArr[this.e.self_id] = new Map();
 
-    let globalPath = `${this.path}${Bot.uin}.json`;
+    let globalPath = `${this.path}${this.e.self_id}.json`;
     if (!fs.existsSync(globalPath)) {
       return;
     }
@@ -528,20 +495,20 @@ export class add extends plugin {
         if (text[i][0] && !Array.isArray(text[i][0])) {
           text[i] = [text[i]];
         }
-        textArr[Bot.uin].set(String(i), text[i]);
+        textArr[this.e.self_id].set(String(i), text[i]);
       }
     } catch (error) {
       logger.error(`json格式错误：${globalPath}`);
-      delete textArr[Bot.uin];
+      delete textArr[this.e.self_id];
       return false;
     }
 
     /** 加载表情 */
-    let globalFacePath = `${this.facePath}${Bot.uin}`;
+    let globalFacePath = `${this.facePath}${this.e.self_id}`;
 
     if (fs.existsSync(globalFacePath)) {
       const files = fs
-        .readdirSync(`${this.facePath}${Bot.uin}`)
+        .readdirSync(`${this.facePath}${this.e.self_id}`)
         .filter((file) => /\.(jpeg|jpg|png|gif)$/g.test(file));
 
       for (let val of files) {
@@ -549,9 +516,9 @@ export class add extends plugin {
         tmp[0] = tmp[0].replace(/_[0-9]{10}$/, "");
         if (/at|image/g.test(val)) continue;
 
-        if (textArr[Bot.uin].has(tmp[0])) continue;
+        if (textArr[this.e.self_id].has(tmp[0])) continue;
 
-        textArr[Bot.uin].set(tmp[0], [
+        textArr[this.e.self_id].set(tmp[0], [
           [
             {
               local: `${globalFacePath}/${val}`,
@@ -736,19 +703,19 @@ export class add extends plugin {
       title = `表情${search}，${count}条`
     }
 
-    let forwardMsg = await this.makeForwardMsg(Bot.uin, title, msg, end)
+    let forwardMsg = await this.makeForwardMsg(this.e.self_id, title, msg, end)
 
     this.e.reply(forwardMsg)
   }
 
   async makeForwardMsg (qq, title, msg, end = '') {
-    let nickname = Bot.nickname
+    let nickname = Bot[this.e.self_id].nickname
     if (this.e.isGroup) {
-      let info = await Bot.getGroupMemberInfo(this.e.group_id, qq)
+      let info = await Bot[this.e.self_id].getGroupMemberInfo(this.e.group_id, qq)
       nickname = info.card ?? info.nickname
     }
     let userInfo = {
-      user_id: Bot.uin,
+      user_id: this.e.self_id,
       nickname
     }
 
@@ -807,7 +774,7 @@ export class add extends plugin {
 
       for (let qq of tmp) {
         qq = qq.match(/[1-9][0-9]{4,14}/g)[0]
-        let member = await await Bot.getGroupMemberInfo(this.group_id, Number(qq)).catch(() => { })
+        let member = await await Bot[this.e.self_id].getGroupMemberInfo(this.group_id, Number(qq)).catch(() => { })
         let name = member?.card ?? member?.nickname
         if (!name) continue
         msg = msg.replace(`{at:${qq}}`, `@${name}`)

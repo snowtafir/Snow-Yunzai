@@ -28,7 +28,7 @@ export class status extends plugin {
   }
 
   async statusMaster () {
-    let runTime = moment().diff(moment.unix(Bot.stat.start_time), 'seconds')
+    let runTime = moment().diff(moment.unix(Bot[this.e.self_id].stat.start_time), 'seconds')
     let Day = Math.floor(runTime / 3600 / 24)
     let Hour = Math.floor((runTime / 3600) % 24)
     let Min = Math.floor((runTime / 60) % 60)
