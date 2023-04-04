@@ -16,6 +16,6 @@ export class invite extends plugin {
     }
     Bot.logger.mark(`[主人邀请加群]：${this.e.group_name}：${this.e.group_id}`)
     this.e.approve(true)
-    Bot[this.e.self_id].pickFriend(this.e.user_id).sendMsg(`已同意加群：${this.e.group_name}`)
+    this.e.bot.pickFriend(this.e.user_id).sendMsg(`已同意加群：${this.e.group_name}`)
   }
 }

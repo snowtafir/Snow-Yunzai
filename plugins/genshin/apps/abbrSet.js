@@ -61,10 +61,10 @@ export class abbrSet extends plugin {
     if (this.e.isMaster) return true
     /** 管理员 */
     if (abbrSetAuth == 1) {
-      if (!Bot[this.e.self_id].gml.has(this.e.group_id)) {
+      if (!this.e.bot.gml.has(this.e.group_id)) {
         return false
       }
-      if (!Bot[this.e.self_id].gml.get(this.e.group_id).get(this.e.user_id)) {
+      if (!this.e.bot.gml.get(this.e.group_id).get(this.e.user_id)) {
         return false
       }
       if (!this.e.member.is_admin) {
@@ -169,9 +169,9 @@ export class abbrSet extends plugin {
   }
 
   async makeForwardMsg (qq, title, msg) {
-    let nickname = Bot[this.e.self_id].nickname
+    let nickname = this.e.bot.nickname
     if (this.e.isGroup) {
-      let info = await Bot[this.e.self_id].getGroupMemberInfo(this.e.group_id, qq)
+      let info = await this.e.bot.getGroupMemberInfo(this.e.group_id, qq)
       nickname = info.card ?? info.nickname
     }
     let userInfo = {

@@ -80,9 +80,9 @@ export class sendLog extends plugin {
   }
 
   async makeForwardMsg (title, msg) {
-    let nickname = Bot[this.e.self_id].nickname
+    let nickname = this.e.bot.nickname
     if (this.e.isGroup) {
-      let info = await Bot[this.e.self_id].getGroupMemberInfo(this.e.group_id, this.e.self_id)
+      let info = await this.e.bot.getGroupMemberInfo(this.e.group_id, this.e.self_id)
       nickname = info.card ?? info.nickname
     }
     let userInfo = {

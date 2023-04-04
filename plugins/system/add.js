@@ -127,10 +127,10 @@ export class add extends plugin {
       return false
     }
     if (groupCfg.imgAddLimit == 1) {
-      if (!Bot[this.e.self_id].gml.has(this.group_id)) {
+      if (!this.e.bot.gml.has(this.group_id)) {
         return false
       }
-      if (!Bot[this.e.self_id].gml.get(this.group_id).get(this.e.user_id)) {
+      if (!this.e.bot.gml.get(this.group_id).get(this.e.user_id)) {
         return false
       }
       if (!this.e.member.is_admin) {
@@ -709,9 +709,9 @@ export class add extends plugin {
   }
 
   async makeForwardMsg (qq, title, msg, end = '') {
-    let nickname = Bot[this.e.self_id].nickname
+    let nickname = this.e.bot.nickname
     if (this.e.isGroup) {
-      let info = await Bot[this.e.self_id].getGroupMemberInfo(this.e.group_id, qq)
+      let info = await this.e.bot.getGroupMemberInfo(this.e.group_id, qq)
       nickname = info.card ?? info.nickname
     }
     let userInfo = {
@@ -774,7 +774,7 @@ export class add extends plugin {
 
       for (let qq of tmp) {
         qq = qq.match(/[1-9][0-9]{4,14}/g)[0]
-        let member = await await Bot[this.e.self_id].getGroupMemberInfo(this.group_id, Number(qq)).catch(() => { })
+        let member = await await this.e.bot.getGroupMemberInfo(this.group_id, Number(qq)).catch(() => { })
         let name = member?.card ?? member?.nickname
         if (!name) continue
         msg = msg.replace(`{at:${qq}}`, `@${name}`)
