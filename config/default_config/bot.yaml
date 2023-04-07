@@ -1,8 +1,6 @@
 # 日志等级:trace,debug,info,warn,fatal,mark,error,off
 # mark时只显示执行命令，不显示聊天记录
 log_level: info
-# WebSocket 主机
-host: 127.0.0.1
 # WebSocket 端口
 port: 2536
 # 群聊和频道中过滤自己的消息

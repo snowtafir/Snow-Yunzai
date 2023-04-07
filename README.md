@@ -6,15 +6,16 @@
 
 ---
 
-- 使用 go-cqhttp 登录且支持多账号
+- 支持多账号
+- 支持协议端：go-cqhttp、ComWeChat
 - 由于完全删除了 OICQ，并且内置 `segment`，若插件缺少 OICQ，需删除 `import { segment } from "oicq"`
 
 ## TRSS-Yunzai 后续计划
 
 先刨坑，但也许会咕咕咕
 
-- 支持更多 go-cqhttp API 和 Event
-- 内置 go-cqhttp
+- 完善现有协议端
+- 支持更多协议端
 
 项目仅供学习交流使用，严禁用于任何商业用途和非法行为
 
@@ -74,14 +75,28 @@ pnpm install -P
 node app
 ```
 
-5.下载运行 [go-cqhttp](https://docs.go-cqhttp.org)，选择反向 WebSocket，修改 config.yml，以下为必改项：
+5.启动协议端：
+
+<details><summary>go-cqhttp</summary>
+
+下载运行 [go-cqhttp](https://docs.go-cqhttp.org)，选择反向 WebSocket，修改 config.yml，以下为必改项：
 
 ```
 uin: 账号
 password: '密码'
 post-format: array
-universal: ws://localhost:2536
+universal: ws://localhost:2536/go-cqhttp
 ```
+
+</details>
+
+<details><summary>ComWeChat</summary>
+
+[ComWeChat](https://justundertaker.github.io/ComWeChatBotClient)
+
+敬请期待
+
+</details>
 
 ## 致谢
 
