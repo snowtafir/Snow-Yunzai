@@ -79,7 +79,7 @@ node app
 
 <details><summary>go-cqhttp</summary>
 
-下载运行 [go-cqhttp](https://docs.go-cqhttp.org)，选择反向 WebSocket，修改 config.yml，以下为必改项：
+下载运行 [go-cqhttp](https://docs.go-cqhttp.org)，选择反向 WebSocket，修改 `config.yml`，以下为必改项：
 
 ```
 uin: 账号
@@ -92,9 +92,12 @@ universal: ws://localhost:2536/go-cqhttp
 
 <details><summary>ComWeChat</summary>
 
-[ComWeChat](https://justundertaker.github.io/ComWeChatBotClient)
+下载运行 [ComWeChat](https://justundertaker.github.io/ComWeChatBotClient)，修改 `.env`，以下为必改项：
 
-敬请期待
+```
+websocekt_type = "Backward"
+websocket_url = "ws://localhost:2536/ComWeChat"
+```
 
 </details>
 
