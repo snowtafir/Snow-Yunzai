@@ -96,10 +96,12 @@ universal: ws://localhost:2536/go-cqhttp
 
 ```
 websocekt_type = "Backward"
-websocket_url = "ws://localhost:2536/ComWeChat"
+websocket_url = ["ws://localhost:2536/ComWeChat"]
 ```
 
 </details>
+
+6.设置主人：发送 `#设置主人`，后台日志获取验证码并发送
 
 ## 致谢
 
