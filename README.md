@@ -101,6 +101,12 @@ websocket_url = ["ws://localhost:2536/ComWeChat"]
 
 </details>
 
+<details><summary>Telegram</summary>
+
+[Telegram](https://github.com/TimeRainStarSky/Yunzai-Telegram-Plugin)
+
+</details>
+
 6.设置主人：发送 `#设置主人`，后台日志获取验证码并发送
 
 ## 致谢
