@@ -7,7 +7,7 @@
 ---
 
 - 支持多账号
-- 支持协议端：go-cqhttp、ComWeChat
+- 支持协议端：go-cqhttp、ComWeChat、Telegram
 - 由于完全删除了 OICQ，并且内置 `segment`，若插件缺少 OICQ，需删除 `import { segment } from "oicq"`
 
 ## TRSS-Yunzai 后续计划
@@ -103,7 +103,7 @@ websocket_url = ["ws://localhost:2536/ComWeChat"]
 
 <details><summary>Telegram</summary>
 
-[Telegram](https://github.com/TimeRainStarSky/Yunzai-Telegram-Plugin)
+[TRSS-Yunzai Telegram Plugin](https://github.com/TimeRainStarSky/Yunzai-Telegram-Plugin)
 
 </details>
 
