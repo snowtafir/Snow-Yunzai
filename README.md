@@ -1,13 +1,7 @@
 # TRSS-Yunzai
 
-基于 [喵版云崽](https://gitee.com/yoimiya-kokomi/Miao-Yunzai) 改造
-
-需要同时安装 [miao-plugin](https://github.com/yoimiya-kokomi/miao-plugin.git)，且后续的一些底层改造可能会改变数据结构，无法直接迁回原版 Yunzai，请根据自己需求情况慎重安装
-
----
-
-- 支持多账号
-- 支持协议端：go-cqhttp、ComWeChat、Telegram
+- 基于 [Miao-Yunzai](../../../../yoimiya-kokomi/Miao-Yunzai) 改造，需要同时安装 [miao-plugin](../../../../yoimiya-kokomi/miao-plugin)
+- 支持多账号，支持协议端：go-cqhttp、ComWeChat、Telegram
 - 由于完全删除了 OICQ，并且内置 `segment`，若插件缺少 OICQ，需删除 `import { segment } from "oicq"`
 
 ## TRSS-Yunzai 后续计划
@@ -103,7 +97,7 @@ websocket_url = ["ws://localhost:2536/ComWeChat"]
 
 <details><summary>Telegram</summary>
 
-[TRSS-Yunzai Telegram Plugin](https://github.com/TimeRainStarSky/Yunzai-Telegram-Plugin)
+[TRSS-Yunzai Telegram Plugin](../../../Yunzai-Telegram-Plugin)
 
 </details>
 
@@ -113,8 +107,8 @@ websocket_url = ["ws://localhost:2536/ComWeChat"]
 
 |                           Nickname                            | Contribution         |
 | :-----------------------------------------------------------: | -------------------- |
-|    [Le-niao Yunzai](https://gitee.com/le-niao/Yunzai-Bot)     | 乐神的 Yunzai-Bot    |
-|  [Miao-Yunzai](https://gitee.com/yoimiya-kokomi/Miao-Yunzai)  | 喵喵的 Miao-Yunzai   |
+|         [Yunzai-Bot](../../../../Le-niao/Yunzai-Bot)          | 乐神的 Yunzai-Bot    |
+|     [Miao-Yunzai](../../../../yoimiya-kokomi/Miao-Yunzai)     | 喵喵的 Miao-Yunzai   |
 | [GardenHamster](https://github.com/GardenHamster/GenshinPray) | 模拟抽卡背景素材来源 |
 |    [西风驿站](https://bbs.mihoyo.com/ys/collection/839181)    | 角色攻略图来源       |
 |  [米游社友人 A](https://bbs.mihoyo.com/ys/collection/428421)  | 角色突破素材图来源   |
