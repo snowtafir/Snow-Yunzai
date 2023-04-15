@@ -1,4 +1,17 @@
+<div>
+
 # TRSS-Yunzai
+
+Yunzai 服务端，支持 go-cqhttp、ComWeChat、Telegram
+
+[![访问量](https://visitor-badge.glitch.me/badge?page_id=TimeRainStarSky.Yunzai&right_color=red&left_text=访%20问%20量)](https://github.com/TimeRainStarSky/Yunzai)
+[![Stars](https://img.shields.io/github/stars/TimeRainStarSky/Yunzai?color=yellow&label=收藏)](../../stargazers)
+[![Downloads](https://img.shields.io/github/downloads/TimeRainStarSky/Yunzai/total?color=blue&label=下载)](../../archive/main.tar.gz)
+[![Releases](https://img.shields.io/github/v/release/TimeRainStarSky/Yunzai?color=green&label=发行版)](../../releases/latest)
+
+[![访问量](https://profile-counter.glitch.me/TimeRainStarSky-Yunzai/count.svg)](https://github.com/TimeRainStarSky/Yunzai)
+
+</div>
 
 - 基于 [Miao-Yunzai](../../../../yoimiya-kokomi/Miao-Yunzai) 改造，需要同时安装 [miao-plugin](../../../../yoimiya-kokomi/miao-plugin)
 - 支持多账号，支持协议端：go-cqhttp、ComWeChat、Telegram
