@@ -264,11 +264,11 @@ export class update extends plugin {
   async makeForwardMsg (title, msg, end) {
     let nickname = this.e.bot.nickname
     if (this.e.isGroup) {
-      let info = await this.e.bot.getGroupMemberInfo(this.e.group_id, this.e.self_id)
+      let info = await this.e.bot.getGroupMemberInfo(this.e.group_id, this.e.bot.uin)
       nickname = info.card ?? info.nickname
     }
     let userInfo = {
-      user_id: this.e.self_id,
+      user_id: this.e.bot.uin,
       nickname
     }
 

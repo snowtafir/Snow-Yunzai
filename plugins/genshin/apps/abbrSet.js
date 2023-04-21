@@ -163,7 +163,7 @@ export class abbrSet extends plugin {
 
     let title = `${role.name}别名，${list.length}个`
 
-    msg = await this.makeForwardMsg(this.e.self_id, title, msg)
+    msg = await this.makeForwardMsg(this.e.bot.uin, title, msg)
 
     await this.e.reply(msg)
   }
@@ -175,7 +175,7 @@ export class abbrSet extends plugin {
       nickname = info.card ?? info.nickname
     }
     let userInfo = {
-      user_id: this.e.self_id,
+      user_id: this.e.bot.uin,
       nickname
     }
 
