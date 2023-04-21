@@ -16,6 +16,7 @@ Yunzai 服务端，支持 go-cqhttp、ComWeChat、Telegram
 - 基于 [Miao-Yunzai](../../../../yoimiya-kokomi/Miao-Yunzai) 改造，需要同时安装 [miao-plugin](../../../../yoimiya-kokomi/miao-plugin)
 - 支持多账号，支持协议端：go-cqhttp、ComWeChat、Telegram
 - 由于完全删除了 OICQ，并且内置 `segment`，若插件缺少 OICQ，需删除 `import { segment } from "oicq"`
+- 开发文档：[docs 分支](../../tree/docs)
 
 ## TRSS-Yunzai 后续计划
 
