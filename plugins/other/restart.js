@@ -29,7 +29,7 @@ export class Restart extends plugin {
 
   async init () {
     let restart = await redis.get(this.key)
-    if (restart && process.argv[1].includes('pm2')) {
+    if (restart) {
       restart = JSON.parse(restart)
       let time = restart.time || new Date().getTime()
       time = (new Date().getTime() - time) / 1000
@@ -37,9 +37,9 @@ export class Restart extends plugin {
       let msg = `重启成功：耗时${time.toFixed(2)}秒`
 
       if (restart.isGroup) {
-        this.e.bot.pickGroup(restart.id).sendMsg(msg)
+        Bot.once(`connect.${restart.bot_id}`, data => data.pickGroup(restart.id).sendMsg(msg))
       } else {
-        this.e.bot.pickUser(restart.id).sendMsg(msg)
+        Bot.once(`connect.${restart.bot_id}`, data => data.pickUser(restart.id).sendMsg(msg))
       }
       redis.del(this.key)
     }
@@ -52,6 +52,7 @@ export class Restart extends plugin {
     let data = JSON.stringify({
       isGroup: !!this.e.isGroup,
       id: this.e.isGroup ? this.e.group_id : this.e.user_id,
+      bot_id: this.e.self_id,
       time: new Date().getTime()
     })
 
@@ -62,8 +63,6 @@ export class Restart extends plugin {
       let cm = `${npm} start`
       if (process.argv[1].includes('pm2')) {
         cm = `${npm} run restart`
-      } else {
-        await this.e.reply('当前为前台运行，重启将转为后台...')
       }
 
       exec(cm, { windowsHide: true }, (error, stdout, stderr) => {
