@@ -3,20 +3,16 @@
 log_level: info
 # WebSocket 端口
 port: 2536
-# 群聊和频道中过滤自己的消息
-ignore_self: true
-# 被风控时是否尝试用分片发送
-resend: false
 
 # chromium其他路径
 chromium_path: 
 # puppeteer接口地址
 puppeteer_ws: 
-  
+
 # 米游社接口代理地址，国际服用
 proxyAddress: 
 
-# 上线时给首个主人QQ推送帮助
+# 上线时给主人推送帮助
 online_msg: true
 # 上线推送通知的冷却时间
 online_msg_exp: 86400
