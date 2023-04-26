@@ -31,8 +31,6 @@ export class master extends plugin {
 
   async master () {
     if (this.e.isMaster) {
-      this.edit(file, "masterQQ", this.e.user_id)
-      this.edit(file, "master", `${this.e.self_id}:${this.e.user_id}`)
       await this.reply(`账号：${this.e.user_id} 已经为主人`, true)
       return false
     }
