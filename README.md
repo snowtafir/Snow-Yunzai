@@ -2,7 +2,7 @@
 
 # TRSS-Yunzai
 
-Yunzai 服务端，支持 go-cqhttp、ComWeChat、Telegram、Discord
+Yunzai 服务端，支持 go-cqhttp、ComWeChat、ICQQ、Telegram、Discord
 
 [![访问量](https://visitor-badge.glitch.me/badge?page_id=TimeRainStarSky.Yunzai&right_color=red&left_text=访%20问%20量)](https://github.com/TimeRainStarSky/Yunzai)
 [![Stars](https://img.shields.io/github/stars/TimeRainStarSky/Yunzai?color=yellow&label=收藏)](../../stargazers)
@@ -14,7 +14,7 @@ Yunzai 服务端，支持 go-cqhttp、ComWeChat、Telegram、Discord
 </div>
 
 - 基于 [Miao-Yunzai](../../../../yoimiya-kokomi/Miao-Yunzai) 改造，需要同时安装 [miao-plugin](../../../../yoimiya-kokomi/miao-plugin)
-- 支持多账号，支持协议端：go-cqhttp、ComWeChat、Telegram、Discord
+- 支持多账号，支持协议端：go-cqhttp、ComWeChat、ICQQ、Telegram、Discord
 - 由于完全删除了 OICQ，并且内置 `segment`，若插件缺少 OICQ，需删除 `import { segment } from "oicq"`
 - 开发文档：[docs 分支](../../tree/docs)
 
@@ -106,6 +106,12 @@ universal: ws://localhost:2536/go-cqhttp
 websocekt_type = "Backward"
 websocket_url = ["ws://localhost:2536/ComWeChat"]
 ```
+
+</details>
+
+<details><summary>ICQQ</summary>
+
+[TRSS-Yunzai ICQQ Plugin](../../../Yunzai-ICQQ-Plugin)
 
 </details>
 
