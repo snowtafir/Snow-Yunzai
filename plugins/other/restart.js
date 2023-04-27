@@ -50,8 +50,8 @@ export class Restart extends plugin {
     logger.mark(`${this.e.logFnc} 开始执行重启，请稍等...`)
 
     let data = JSON.stringify({
-      isGroup: !!this.e.isGroup,
-      id: this.e.isGroup ? this.e.group_id : this.e.user_id,
+      isGroup: !!this.e.group_id,
+      id: this.e.group_id ? this.e.group_id : this.e.user_id,
       bot_id: this.e.self_id,
       time: new Date().getTime()
     })

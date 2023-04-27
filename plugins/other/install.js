@@ -13,9 +13,9 @@ const list = {
   'earth-k-plugin'    :'https://gitee.com/SmallK111407/earth-k-plugin',
   'xiaofei-plugin'    :'https://gitee.com/xfdown/xiaofei-plugin',
   'xiaoyao-cvs-plugin':'https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin',
-  'ICQQ-Plugin'       :'https://gitee.com/TimeRainStarSky/Yunzai-ICQQ-Plugin',
   'Telegram-Plugin'   :'https://gitee.com/TimeRainStarSky/Yunzai-Telegram-Plugin',
-  'Discord-Plugin'    :'https://gitee.com/TimeRainStarSky/Yunzai-TRSS-Plugin',
+  'Discord-Plugin'    :'https://gitee.com/TimeRainStarSky/Yunzai-Discord-Plugin',
+  'ICQQ-Plugin'       :'https://gitee.com/TimeRainStarSky/Yunzai-ICQQ-Plugin',
 }
 
 export class install extends plugin {

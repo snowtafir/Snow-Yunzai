@@ -1,7 +1,7 @@
 import fs from "fs"
 import { randomUUID } from "crypto"
 let code = {}
-let file = "./config/config/other.yaml"
+let file = "config/config/other.yaml"
 export class master extends plugin {
   constructor () {
     super({
