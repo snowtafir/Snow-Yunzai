@@ -1,6 +1,6 @@
 # 3.0.2
 
-* 支持协议端：ComWeChat、ICQQ、Telegram、Discord
+* 支持协议端：ComWeChat、ICQQ、KOOK、Telegram、Discord
 * 3.6卡池以及图像武器别名等数据更新 **@cvs**
 * 将渲染逻辑独立，支持扩展渲染器 **@ikuaki**
 

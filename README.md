@@ -2,7 +2,7 @@
 
 # TRSS-Yunzai
 
-Yunzai 应用端，支持多账号，支持协议端：go-cqhttp、ComWeChat、ICQQ、Telegram、Discord
+Yunzai 应用端，支持多账号，支持协议端：go-cqhttp、ComWeChat、ICQQ、KOOK、Telegram、Discord
 
 [![访问量](https://visitor-badge.glitch.me/badge?page_id=TimeRainStarSky.Yunzai&right_color=red&left_text=访%20问%20量)](https://github.com/TimeRainStarSky/Yunzai)
 [![Stars](https://img.shields.io/github/stars/TimeRainStarSky/Yunzai?color=yellow&label=收藏)](../../stargazers)
@@ -111,6 +111,12 @@ websocket_url = ["ws://localhost:2536/ComWeChat"]
 <details><summary>ICQQ</summary>
 
 [TRSS-Yunzai ICQQ Plugin](../../../Yunzai-ICQQ-Plugin)
+
+</details>
+
+<details><summary>KOOK</summary>
+
+[TRSS-Yunzai KOOK Plugin](../../../Yunzai-KOOK-Plugin)
 
 </details>
 

@@ -16,6 +16,7 @@ const list = {
   'Telegram-Plugin'   :'https://gitee.com/TimeRainStarSky/Yunzai-Telegram-Plugin',
   'Discord-Plugin'    :'https://gitee.com/TimeRainStarSky/Yunzai-Discord-Plugin',
   'ICQQ-Plugin'       :'https://gitee.com/TimeRainStarSky/Yunzai-ICQQ-Plugin',
+  'KOOK-Plugin'       :'https://gitee.com/TimeRainStarSky/Yunzai-KOOK-Plugin',
 }
 
 export class install extends plugin {
@@ -42,7 +43,17 @@ export class install extends plugin {
 
     const name = this.e.msg.replace(/^#安装/, '').trim()
     if (name == '插件') {
-      await this.reply(`插件列表：\n${Object.keys(list).join('\n')}\n发送 #安装[插件名] 进行安装`)
+      let msg = '\n'
+      for (const name in list)
+        if (!fs.existsSync(`plugins/${name}`))
+          msg += `${name}\n`
+
+      if (msg == '\n')
+        msg = '暂无可安装插件'
+      else
+        msg = `可安装插件列表：${msg}发送 #安装+插件名 进行安装`
+
+      await this.reply(msg)
       return true
     }
 
