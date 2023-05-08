@@ -2,7 +2,7 @@
 
 # TRSS-Yunzai
 
-Yunzai 应用端，支持多账号，支持协议端：go-cqhttp、ComWeChat、ICQQ、KOOK、Telegram、Discord
+Yunzai 应用端，支持多账号，支持协议端：go-cqhttp、ComWeChat、ICQQ、QQ频道、KOOK、Telegram、Discord
 
 [![访问量](https://visitor-badge.glitch.me/badge?page_id=TimeRainStarSky.Yunzai&right_color=red&left_text=访%20问%20量)](https://github.com/TimeRainStarSky/Yunzai)
 [![Stars](https://img.shields.io/github/stars/TimeRainStarSky/Yunzai?color=yellow&label=收藏)](../../stargazers)
@@ -37,7 +37,7 @@ Yunzai 应用端，支持多账号，支持协议端：go-cqhttp、ComWeChat、I
 
 ### 手动安装
 
-> 环境准备： Windows or Linux，Node.js（ [版本至少 v16 以上](http://nodejs.cn/download) ）， [Redis](https://redis.io/docs/getting-started/installation)
+> 环境准备： Windows or Linux，Node.js（ [版本至少 v18 以上](http://nodejs.cn/download) ）， [Redis](https://redis.io/docs/getting-started/installation)
 
 1.克隆项目并安装 miao-plugin
 
@@ -111,6 +111,12 @@ websocket_url = ["ws://localhost:2536/ComWeChat"]
 <details><summary>ICQQ</summary>
 
 [TRSS-Yunzai ICQQ Plugin](../../../Yunzai-ICQQ-Plugin)
+
+</details>
+
+<details><summary>QQ频道</summary>
+
+[TRSS-Yunzai QQGuild Plugin](../../../Yunzai-QQGuild-Plugin)
 
 </details>
 

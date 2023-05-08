@@ -15,6 +15,7 @@ const list = {
   'xiaoyao-cvs-plugin':'https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin',
   'Telegram-Plugin'   :'https://gitee.com/TimeRainStarSky/Yunzai-Telegram-Plugin',
   'Discord-Plugin'    :'https://gitee.com/TimeRainStarSky/Yunzai-Discord-Plugin',
+  'QQGuild-Plugin'    :'https://gitee.com/TimeRainStarSky/Yunzai-QQGuild-Plugin',
   'ICQQ-Plugin'       :'https://gitee.com/TimeRainStarSky/Yunzai-ICQQ-Plugin',
   'KOOK-Plugin'       :'https://gitee.com/TimeRainStarSky/Yunzai-KOOK-Plugin',
 }
@@ -23,7 +24,7 @@ export class install extends plugin {
   constructor () {
     super({
       name: '安装插件',
-      dsc: '#安装TRSS-Plugin #插件列表',
+      dsc: '#安装插件 #安装TRSS-Plugin',
       event: 'message',
       rule: [
         {
