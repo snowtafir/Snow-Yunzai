@@ -322,10 +322,11 @@ export default class MysNews extends base {
     let sended = await redis.get(`${this.key}${groupId}:${postId}`)
     if (sended) return
 
-    this.e.group = Bot.pickGroup(groupId)
+    // TODO: 暂时处理，后续待更好的解决方案 （定时任务无法获取e.bot）
+    this.e.bot = Bot
 
     // 判断是否存在群关系
-    if (!this.e.group) {
+    if (!this.e.bot.gl.get(Number(groupId))) {
       logger.mark(`[米游社${typeName}推送] 群${groupId}未关联`)
       return
     }
@@ -342,7 +343,8 @@ export default class MysNews extends base {
     }
 
     this.pushGroup[groupId]++
-    this.e.group_id = groupId
+    this.e.group = this.e.bot.pickGroup(Number(groupId))
+    this.e.group_id = Number(groupId)
     let tmp = await this.replyMsg(this[postId].img, `原神${typeName}推送：${this[postId].title}`)
 
     await common.sleep(1000)
