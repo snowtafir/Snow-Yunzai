@@ -127,12 +127,6 @@ export class add extends plugin {
       return false
     }
     if (groupCfg.imgAddLimit == 1) {
-      if (!this.e.bot.gml.has(this.group_id)) {
-        return false
-      }
-      if (!this.e.bot.gml.get(this.group_id).get(this.e.user_id)) {
-        return false
-      }
       if (!this.e.member.is_admin) {
         this.e.reply('暂无权限，只有管理员才能操作')
         return false
@@ -197,8 +191,7 @@ export class add extends plugin {
     this.e.isGlobal = this.e.msg.includes("全局");
 
     this.keyWord = this.e.raw_message.trim()
-      /** 过滤#添加 */
-      .replace(/#|＃|图片|表情|添加|删除|全局/g, '')
+      .replace(/^#?(全局)?(添加|删除)(图片|表情)?/, '')
       .trim()
 
     this.keyWord = this.trimAlias(this.keyWord)
@@ -238,19 +231,6 @@ export class add extends plugin {
 
     let retMsg = [keyWord]
     this.finish('addContext')
-
-    for (let i in message) {
-      if (message[i].type == 'at') {
-        if (message[i].qq == this.e.bot.uin) {
-          this.e.reply('添加内容不能@机器人！')
-          return
-        }
-      }
-      if (message[i].type == 'file') {
-        this.e.reply('添加错误：禁止添加文件')
-        return
-      }
-    }
 
     if (message.length == 1 && message[0].type == 'image') {
       let local = await this.saveImg(message[0].url, keyWord)
@@ -342,7 +322,7 @@ export class add extends plugin {
   }
 
   async getText () {
-    if (!this.e.message) return false
+    if (!this.e.raw_message) return false
     
     this.isGlobal = false
 
@@ -354,10 +334,7 @@ export class add extends plugin {
     
     this.initGlobalTextArr()
 
-    let keyWord = this.e.toString()
-      .replace(/#|＃/g, '')
-      .replace(`{at:${this.e.bot.uin}}`, '')
-      .trim()
+    let keyWord = this.e.raw_message.trim()
 
     keyWord = this.trimAlias(keyWord)
 
@@ -678,7 +655,7 @@ export class add extends plugin {
     for (let i in arr) {
       if (num >= page * pageSize) break
 
-      let keyWord = await this.keyWordTran(arr[i].key)
+      let keyWord = arr[i].key
       if (!keyWord) continue
 
       if (Array.isArray(keyWord)) {
@@ -703,45 +680,28 @@ export class add extends plugin {
       title = `表情${search}，${count}条`
     }
 
-    let forwardMsg = await this.makeForwardMsg(this.e.bot.uin, title, msg, end)
+    let forwardMsg = await this.makeForwardMsg(title, msg, end)
 
     this.e.reply(forwardMsg)
   }
 
-  async makeForwardMsg (qq, title, msg, end = '') {
-    let nickname = this.e.bot.nickname
-    if (this.e.isGroup) {
-      let info = await this.e.bot.getGroupMemberInfo(this.e.group_id, qq)
-      nickname = info.card ?? info.nickname
-    }
-    let userInfo = {
-      user_id: this.e.bot.uin,
-      nickname
-    }
-
-    let forwardMsg = [
-      {
-        ...userInfo,
-        message: title
-      }
-    ]
+  async makeForwardMsg (title, msg, end = '') {
+    let forwardMsg = [{ message: title }]
 
     let msgArr = lodash.chunk(msg, 40)
     msgArr.forEach(v => {
       v[v.length - 1] = lodash.trim(v[v.length - 1], '\n')
-      forwardMsg.push({ ...userInfo, message: v })
+      forwardMsg.push({ message: v })
     })
 
-    if (end) {
-      forwardMsg.push({ ...userInfo, message: end })
-    }
+    if (end)
+      forwardMsg.push({ message: end })
 
     /** 制作转发内容 */
-    if (this.e.isGroup) {
+    if (this.e.group)
       forwardMsg = await this.e.group.makeForwardMsg(forwardMsg)
-    } else {
+    else
       forwardMsg = await this.e.friend.makeForwardMsg(forwardMsg)
-    }
 
     /** 处理描述 */
     forwardMsg.data = forwardMsg.data
@@ -756,39 +716,5 @@ export class add extends plugin {
   pagination (pageNo, pageSize, array) {
     let offset = (pageNo - 1) * pageSize
     return offset + pageSize >= array.length ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize)
-  }
-
-  /** 关键词转换成可发送消息 */
-  async keyWordTran (msg) {
-    /** 图片 */
-    if (msg.includes('{image')) {
-      let tmp = msg.split('{image')
-      if (tmp.length > 2) return false
-
-      let md5 = tmp[1].replace(/}|_|:/g, '')
-
-      msg = segment.image(`http://gchat.qpic.cn/gchatpic_new/0/0-0-${md5}/0`)
-      msg.asface = true
-    } else if (msg.includes('{at:')) {
-      let tmp = msg.match(/{at:(.+?)}/g)
-
-      for (let qq of tmp) {
-        qq = qq.match(/[1-9][0-9]{4,14}/g)[0]
-        let member = await await this.e.bot.getGroupMemberInfo(this.group_id, Number(qq)).catch(() => { })
-        let name = member?.card ?? member?.nickname
-        if (!name) continue
-        msg = msg.replace(`{at:${qq}}`, `@${name}`)
-      }
-    } else if (msg.includes('{face')) {
-      let tmp = msg.match(/{face(:|_)(.+?)}/g)
-      if (!tmp) return msg
-      msg = []
-      for (let face of tmp) {
-        let id = face.match(/\d+/g)
-        msg.push(segment.face(id))
-      }
-    }
-
-    return msg
   }
 }
