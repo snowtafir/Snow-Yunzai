@@ -36,11 +36,11 @@ export class Restart extends plugin {
 
       let msg = `重启成功：耗时${time.toFixed(2)}秒`
 
-      if (restart.isGroup) {
-        Bot.once(`connect.${restart.bot_id}`, data => data.pickGroup(restart.id).sendMsg(msg))
-      } else {
-        Bot.once(`connect.${restart.bot_id}`, data => data.pickUser(restart.id).sendMsg(msg))
-      }
+      if (restart.isGroup)
+        Bot.sendGroupMsg(restart.bot_id, restart.id, msg)
+      else
+        Bot.sendFriendMsg(restart.bot_id, restart.id, msg)
+
       redis.del(this.key)
     }
   }
