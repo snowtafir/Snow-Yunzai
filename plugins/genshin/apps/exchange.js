@@ -37,6 +37,7 @@ export class exchange extends plugin {
     if (index.data === null) {
       return await this.reply(`错误：\n${index.message}`)
     }
+    
     let index_data = index.data.live;
     let title = index_data['title'];
     this.code_ver = index_data['code_ver'];
@@ -96,18 +97,6 @@ export class exchange extends plugin {
     const res = await response.json()
     return res
   }
-
-  // async getActId () {
-  //   let ret = await this.getData('actId')
-  //   if (!ret || ret.retcode !== 0) return false
-
-  //   let post = lodash.map(ret.data.posts, 'post')
-  //   post = lodash.maxBy(post, 'created_at')
-  //   let actId = post.content.replace(/\[链接\]|\[图片\]/g, '').trim()
-  //   if (!actId) return false
-
-  //   return actId
-  // }
 
   async getActId() {
     // 获取 "act_id"
