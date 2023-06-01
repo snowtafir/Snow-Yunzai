@@ -349,6 +349,19 @@ export default class NoteUser extends BaseModel {
     await this.save()
   }
 
+  async eachMysUser (fn) {
+    await Data.forEach(this.mysUsers, async (mys, ltuid) => {
+      if (!mys) {
+        return true
+      }
+      return fn(mys, ltuid)
+    })
+  }
+
+  async eachAllMysUser (fn) {
+    return MysUser.forEach(fn)
+  }
+
   /**
    * 检查当前用户绑定的CK状态
    */
