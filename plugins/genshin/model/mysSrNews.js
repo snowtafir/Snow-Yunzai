@@ -5,10 +5,9 @@ import puppeteer from '../../../lib/puppeteer/puppeteer.js'
 import common from '../../../lib/common/common.js'
 import gsCfg from '../model/gsCfg.js'
 
-const _path = process.cwd()
 let emoticon
 
-export default class MysNews extends base {
+export default class MysSrNews extends base {
   constructor (e) {
     super(e)
     this.model = 'mysNews'
@@ -192,7 +191,7 @@ export default class MysNews extends base {
       })
     }
   }
-  
+
   async mysNewsTask (type = 1) {
     let cfg = gsCfg.getConfig('mys', 'pushNews')
 
@@ -245,6 +244,15 @@ export default class MysNews extends base {
     let sended = await redis.get(`${this.key}${groupId}:${postId}`)
     if (sended) return
 
+    // TODO: 暂时处理，后续待更好的解决方案 （定时任务无法获取e.bot）
+    this.e.bot = Bot
+
+    // 判断是否存在群关系
+    if (!this.e.bot.gl.get(Number(groupId))) {
+      logger.mark(`[崩坏星穹铁道${typeName}推送] 群${groupId}未关联`)
+      return
+    }
+
     if (!this[postId]) {
       const param = await this.newsDetail(postId)
 
@@ -269,6 +277,8 @@ export default class MysNews extends base {
     }
 
     redis.set(`${this.key}${groupId}:${postId}`, '1', { EX: 3600 * 10 })
+    // 随机延迟10-90秒
+    await common.sleep(lodash.random(10, 90) * 1000)
     await this.e.group.sendMsg(tmp)
   }
 }
