@@ -17,8 +17,8 @@ export default class base {
    * @param tplFile 模板html路径
    * @param pluResPath 插件资源路径
    */
-  get screenData () {
-    let headImg = '宵宫'
+  get screenData() {
+    let headImg = '枫原万叶'
 
     return {
       saveId: this.userId,
