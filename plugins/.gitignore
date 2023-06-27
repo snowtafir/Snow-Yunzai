@@ -1,6 +1,9 @@
 *
 !.gitignore
 
+!adapter
+!adapter/**
+
 !genshin
 !genshin/**
 genshin/config/*
